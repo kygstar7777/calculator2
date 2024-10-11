@@ -1,6 +1,6 @@
 function calculate() {
     // 입력값 가져오기
-    let investmentAmount = document.getElementById("investmentAmount").value * 10000; // 만 원
+    const investmentAmount = document.getElementById("investmentAmount").value * 10000; // 만 원
     const dividendYield = document.getElementById("dividendYield").value / 100; // 비율
     const dividendGrowthRate = document.getElementById("dividendGrowthRate").value / 100; // 비율
     const stockGrowthRate = document.getElementById("stockGrowthRate").value / 100; // 비율
@@ -32,8 +32,8 @@ function calculate() {
     // 재투자된 배당금 계산
     let reinvestedDividends = afterTaxDividend * dividendReinvestmentRate;
 
-    // 총 자산 증가 계산
-    let totalAssetsIncrease = investmentAmount * (1 + stockGrowthRate) + (monthlyDividendInvestment * 12 * (1 + stockGrowthRate));
+    // 총 자산 증가 계산 (기존 투자금과 월 투자금 합산)
+    let totalAssetsIncrease = (investmentAmount * (1 + stockGrowthRate)) + (monthlyDividendInvestment * 12 * (1 + stockGrowthRate));
 
     // 목표 달성까지 걸리는 년수 및 연 배당금액 계산
     let years = 0;
@@ -41,12 +41,14 @@ function calculate() {
 
     // 연도마다 계산
     while (currentAnnualDividend < targetAnnualDividend) {
-        // 매년 배당금 증가
+        // 투자금액 갱신
         investmentAmount = investmentAmount * (1 + stockGrowthRate) + reinvestedDividends;
+        monthlyDividendInvestment *= (1 + monthlyDividendIncreaseRate); // 월 투자금액 증가
+
+        // 다음 해의 배당금 계산
         currentAnnualDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
         
-        // 월 투자금액 증가
-        monthlyDividendInvestment *= (1 + monthlyDividendIncreaseRate);
+        // 재투자된 배당금 갱신
         reinvestedDividends = currentAnnualDividend * dividendReinvestmentRate;
 
         // 연도 증가
@@ -55,10 +57,9 @@ function calculate() {
 
     // 결과 출력
     document.getElementById("nextYearDividend").innerText = "다음 해의 배당금: " + nextYearDividend.toFixed(2) + " 원";
-    document.getElementById("afterTaxDividend").innerText = "세후 배당금: " + afterTaxDividend.toFixed(2) + " 원";
+    document.getElementById("afterTaxDividend").innerText = "목표 달성 시 월 세후 배당금: " + (afterTaxDividend).toFixed(2) + " 원";
     document.getElementById("realValueAfterInflation").innerText = "인플레이션 반영 후 배당금 가치: " + realValueAfterInflation.toFixed(2) + " 원";
-    document.getElementById("reinvestedDividends").innerText = "재투자된 배당금: " + reinvestedDividends.toFixed(2) + " 원";
-    document.getElementById("totalAssetsIncrease").innerText = "총 자산 증가: " + totalAssetsIncrease.toFixed(2) + " 원";
+    document.getElementById("totalAssetsIncrease").innerText = "목표 달성 시 총 자산: " + totalAssetsIncrease.toFixed(2) + " 원";
     document.getElementById("yearsToGoal").innerText = "목표 달성까지 걸리는 년수: " + years + " 년";
-    document.getElementById("finalAnnualDividend").innerText = "목표 달성 시 연 배당금액: " + currentAnnualDividend.toFixed(2) + " 원";
+    document.getElementById("finalAnnualDividend").innerText = "목표 달성 시 월 세전 배당금: " + currentAnnualDividend.toFixed(2) + " 원";
 }
