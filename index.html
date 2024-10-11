@@ -1,58 +1,54 @@
-function calculate() {
-    // 입력값 가져오기
-    const investmentAmount = document.getElementById("investmentAmount").value * 10000; // 만 원
-    const dividendYield = document.getElementById("dividendYield").value / 100; // 비율
-    const dividendGrowthRate = document.getElementById("dividendGrowthRate").value / 100; // 비율
-    const stockGrowthRate = document.getElementById("stockGrowthRate").value / 100; // 비율
-    const monthlyDividendInvestment = document.getElementById("monthlyDividendInvestment").value * 10000; // 만 원
-    const monthlyDividendIncreaseRate = document.getElementById("monthlyDividendIncreaseRate").value / 100; // 비율
-    const dividendReinvestmentRate = document.getElementById("dividendReinvestmentRate").value / 100; // 비율
-    const dividendTaxRate = document.getElementById("dividendTaxRate").value / 100; // 비율
-    const inflationRate = document.getElementById("inflationRate").value / 100; // 비율
-    const targetMonthlyDividend = document.getElementById("targetMonthlyDividend").value * 10000; // 만 원
-    
-    // 목표 연 배당금 계산
-    const targetAnnualDividend = targetMonthlyDividend * 12; // 목표 연 배당금
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배당금 계산기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>배당금 계산기</h1>
+    <label for="investmentAmount">나의 투자금액 (만 원):</label>
+    <input type="number" id="investmentAmount" value="1000"><br>
 
-    // 다음 해의 배당금 계산
-    let nextYearDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
+    <label for="dividendYield">배당률 (%):</label>
+    <input type="number" id="dividendYield" value="4"><br>
 
-    // 세후 배당금 계산
-    let afterTaxDividend = nextYearDividend * (1 - dividendTaxRate);
+    <label for="dividendGrowthRate">배당 성장률 (%):</label>
+    <input type="number" id="dividendGrowthRate" value="8"><br>
 
-    // 인플레이션 반영 후 배당금 가치 계산
-    let realValueAfterInflation = afterTaxDividend / (1 + inflationRate) || afterTaxDividend;
+    <label for="stockGrowthRate">주가 상승률 (%):</label>
+    <input type="number" id="stockGrowthRate" value="4"><br>
 
-    // 재투자된 배당금 계산
-    let reinvestedDividends = afterTaxDividend * dividendReinvestmentRate;
+    <label for="monthlyDividendInvestment">월 배당 투자금액 (만 원):</label>
+    <input type="number" id="monthlyDividendInvestment" value="200"><br>
 
-    // 총 자산 증가 계산
-    let totalAssetsIncrease = investmentAmount * (1 + stockGrowthRate) + (monthlyDividendInvestment * 12 * (1 + stockGrowthRate));
+    <label for="monthlyDividendIncreaseRate">월 배당 투자금액 증가율 (%):</label>
+    <input type="number" id="monthlyDividendIncreaseRate" value="0"><br>
 
-    // 목표 달성까지 걸리는 년수 및 연 배당금액 계산
-    let years = 0;
-    let currentAnnualDividend = afterTaxDividend;
+    <label for="dividendReinvestmentRate">배당금 재투자율 (%):</label>
+    <input type="number" id="dividendReinvestmentRate" value="100"><br>
 
-    // 연도마다 계산
-    while (currentAnnualDividend < targetAnnualDividend) {
-        // 매년 배당금 증가
-        investmentAmount = investmentAmount * (1 + stockGrowthRate) + reinvestedDividends;
-        currentAnnualDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
-        
-        // 월 투자금액 증가
-        monthlyDividendInvestment *= (1 + monthlyDividendIncreaseRate);
-        reinvestedDividends = currentAnnualDividend * dividendReinvestmentRate;
+    <label for="dividendTaxRate">배당세율 (%):</label>
+    <input type="number" id="dividendTaxRate" value="15.0"><br>
 
-        // 연도 증가
-        years++;
-    }
+    <label for="inflationRate">인플레이션 반영률 (%):</label>
+    <input type="number" id="inflationRate" value="0"><br>
 
-    // 결과 출력
-    document.getElementById("nextYearDividend").innerText = "다음 해의 배당금: " + nextYearDividend.toFixed(2) + " 원";
-    document.getElementById("afterTaxDividend").innerText = "세후 배당금: " + afterTaxDividend.toFixed(2) + " 원";
-    document.getElementById("realValueAfterInflation").innerText = "인플레이션 반영 후 배당금 가치: " + realValueAfterInflation.toFixed(2) + " 원";
-    document.getElementById("reinvestedDividends").innerText = "재투자된 배당금: " + reinvestedDividends.toFixed(2) + " 원";
-    document.getElementById("totalAssetsIncrease").innerText = "총 자산 증가: " + totalAssetsIncrease.toFixed(2) + " 원";
-    document.getElementById("yearsToGoal").innerText = "목표 달성까지 걸리는 년수: " + years + " 년";
-    document.getElementById("finalAnnualDividend").innerText = "목표 달성 시 연 배당금액: " + currentAnnualDividend.toFixed(2) + " 원";
-}
+    <label for="targetMonthlyDividend">목표 월 배당금 (만 원):</label>
+    <input type="number" id="targetMonthlyDividend" value="300"><br>
+
+    <button onclick="calculate()">계산하기</button>
+
+    <h2>결과</h2>
+    <p id="nextYearDividend">다음 해의 배당금: </p>
+    <p id="afterTaxDividend">세후 배당금: </p>
+    <p id="realValueAfterInflation">인플레이션 반영 후 배당금 가치: </p>
+    <p id="reinvestedDividends">재투자된 배당금: </p>
+    <p id="totalAssetsIncrease">총 자산 증가: </p>
+    <p id="yearsToGoal">목표 달성까지 걸리는 년수: </p>
+    <p id="finalAnnualDividend">목표 달성 시 연 배당금액: </p>
+
+    <script src="script.js"></script>
+</body>
+</html>
