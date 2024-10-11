@@ -40,6 +40,9 @@ function calculate() {
         
         // 총 투자금액에 주가 상승률 적용
         totalInvestment *= (1 + stockGrowthRate); // 주가 상승률 반영
+
+        // 배당금 성장률 적용
+        monthlyDividend *= (1 + dividendGrowthRate); // 배당금 성장률 반영
     }
 
     // 결과 표시
