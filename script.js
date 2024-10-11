@@ -4,7 +4,7 @@ function calculate() {
     const dividendYield = parseFloat(document.getElementById("dividendYield").value) / 100;
     const dividendGrowthRate = parseFloat(document.getElementById("dividendGrowthRate").value) / 100;
     const stockGrowthRate = parseFloat(document.getElementById("stockGrowthRate").value) / 100;
-    const monthlyInvestment = parseFloat(document.getElementById("monthlyInvestment").value);
+    let monthlyInvestment = parseFloat(document.getElementById("monthlyInvestment").value); // let으로 변경
     const monthlyInvestmentIncreaseRate = parseFloat(document.getElementById("monthlyInvestmentIncreaseRate").value) / 100;
     const dividendTaxRate = parseFloat(document.getElementById("dividendTaxRate").value) / 100;
     const inflationRate = parseFloat(document.getElementById("inflationRate").value) / 100;
@@ -12,7 +12,6 @@ function calculate() {
     
     let totalInvestment = initialInvestment; // 총 투자금액 초기화
     let year = 0; // 연도 초기화
-    let monthlyInvestmentCurrent = monthlyInvestment; // 현재 월 투자액 초기화
     let monthlyDividend = 0; // 월 배당금 초기화
 
     while (monthlyDividend < targetMonthlyDividend) {
@@ -22,7 +21,7 @@ function calculate() {
         const initialDividend = totalInvestment * dividendYield;
 
         // 월 투자에서 발생하는 배당금
-        const monthlyDividendFromInvestment = monthlyInvestmentCurrent * dividendYield * 12;
+        const monthlyDividendFromInvestment = monthlyInvestment * dividendYield * 12;
 
         // 총 배당금 계산
         const totalDividend = initialDividend + monthlyDividendFromInvestment;
@@ -34,10 +33,10 @@ function calculate() {
         monthlyDividend = afterTaxDividend / 12;
 
         // 총 투자금액 업데이트
-        totalInvestment += monthlyInvestmentCurrent * 12 + afterTaxDividend; // 12개월 후 월 투자금과 배당금을 더함
+        totalInvestment += monthlyInvestment * 12 + afterTaxDividend; // 12개월 후 월 투자금과 배당금을 더함
         
         // 월 배당 투자금 증가
-        monthlyInvestmentCurrent *= (1 + monthlyInvestmentIncreaseRate);
+        monthlyInvestment *= (1 + monthlyInvestmentIncreaseRate);
         
         // 총 투자금액에 주가 상승률 적용
         totalInvestment *= (1 + stockGrowthRate); // 주가 상승률 반영
