@@ -33,19 +33,15 @@ function calculate() {
     let years = 0;
     let currentAnnualDividend = afterTaxDividend;
 
+    // 연도마다 계산
     while (currentAnnualDividend < targetAnnualDividend) {
-        // 다음 해의 배당금 계산
-        nextYearDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
-        afterTaxDividend = nextYearDividend * (1 - dividendTaxRate);
+        // 매년 배당금 증가
+        investmentAmount = investmentAmount * (1 + stockGrowthRate) + reinvestedDividends;
+        currentAnnualDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
         
-        // 재투자된 배당금 계산
-        reinvestedDividends = afterTaxDividend * dividendReinvestmentRate;
-
-        // 자산 증가 계산
-        investmentAmount = investmentAmount * (1 + stockGrowthRate) + reinvestedDividends + (monthlyDividendInvestment * 12);
-        
-        // 연간 배당금 업데이트
-        currentAnnualDividend = afterTaxDividend;
+        // 월 투자금액 증가
+        monthlyDividendInvestment *= (1 + monthlyDividendIncreaseRate);
+        reinvestedDividends = currentAnnualDividend * dividendReinvestmentRate;
 
         // 연도 증가
         years++;
