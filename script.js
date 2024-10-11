@@ -11,6 +11,12 @@ function calculate() {
     const inflationRate = document.getElementById("inflationRate").value / 100; // 비율
     const targetMonthlyDividend = document.getElementById("targetMonthlyDividend").value * 10000; // 만 원
     
+    // 입력값 유효성 검사
+    if (!investmentAmount || !dividendYield || !targetMonthlyDividend) {
+        alert("모든 필드를 올바르게 입력하세요.");
+        return;
+    }
+
     // 목표 연 배당금 계산
     const targetAnnualDividend = targetMonthlyDividend * 12; // 목표 연 배당금
 
@@ -21,7 +27,7 @@ function calculate() {
     let afterTaxDividend = nextYearDividend * (1 - dividendTaxRate);
 
     // 인플레이션 반영 후 배당금 가치 계산
-    let realValueAfterInflation = afterTaxDividend / (1 + inflationRate) || afterTaxDividend;
+    let realValueAfterInflation = afterTaxDividend / (1 + inflationRate);
 
     // 재투자된 배당금 계산
     let reinvestedDividends = afterTaxDividend * dividendReinvestmentRate;
