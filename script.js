@@ -1,6 +1,6 @@
 function calculate() {
     // 입력값 가져오기
-    const investmentAmount = document.getElementById("investmentAmount").value * 10000; // 만 원
+    let investmentAmount = document.getElementById("investmentAmount").value * 10000; // 만 원
     const dividendYield = document.getElementById("dividendYield").value / 100; // 비율
     const dividendGrowthRate = document.getElementById("dividendGrowthRate").value / 100; // 비율
     const stockGrowthRate = document.getElementById("stockGrowthRate").value / 100; // 비율
