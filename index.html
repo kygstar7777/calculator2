@@ -7,96 +7,47 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>배당금 계산기</h1>
-        
-        <div>
-            <label for="investmentAmount">나의 투자금액 (만 원):</label>
-            <input type="number" id="investmentAmount" placeholder="투자금액을 입력하세요 (만 단위)" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="dividendYield">배당률 (%):</label>
-            <input type="number" id="dividendYield" placeholder="배당률을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="dividendGrowthRate">배당 성장률 (%):</label>
-            <input type="number" id="dividendGrowthRate" placeholder="배당 성장률을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="stockGrowthRate">주가 상승률 (%):</label>
-            <input type="number" id="stockGrowthRate" placeholder="주가 상승률을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="monthlyDividendInvestment">월 배당 투자금액 (만 원):</label>
-            <input type="number" id="monthlyDividendInvestment" placeholder="월 투자금액을 입력하세요 (만 단위)" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="monthlyDividendIncreaseRate">월 배당 투자금액 증가율 (%):</label>
-            <input type="number" id="monthlyDividendIncreaseRate" placeholder="증가율을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="dividendReinvestmentRate">배당금 재투자율 (%):</label>
-            <input type="number" id="dividendReinvestmentRate" placeholder="재투자율을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="dividendTaxRate">배당세율 (%):</label>
-            <input type="number" id="dividendTaxRate" placeholder="세율을 입력하세요" value="15.0" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="inflationRate">인플레이션 반영률 (%):</label>
-            <input type="number" id="inflationRate" placeholder="인플레이션 반영률을 입력하세요" step="0.01" />
-        </div>
-        
-        <div>
-            <label for="targetMonthlyDividend">목표 월 배당금 (만 원):</label>
-            <input type="number" id="targetMonthlyDividend" placeholder="목표 금액을 입력하세요 (만 단위)" step="0.01" />
-        </div>
-        
-        <button id="calculateButton">계산하기</button>
+    <h1>배당금 계산기</h1>
+    <label for="investmentAmount">나의 투자금액 (만 원):</label>
+    <input type="number" id="investmentAmount" value="1000"><br>
 
-        <div>
-            <label for="nextYearDividend">다음 해의 배당금:</label>
-            <span id="nextYearDividend">0</span>
-        </div>
-        
-        <div>
-            <label for="afterTaxDividend">세후 배당금:</label>
-            <span id="afterTaxDividend">0</span>
-        </div>
-        
-        <div>
-            <label for="realValueAfterInflation">인플레이션 반영 후 배당금 가치:</label>
-            <span id="realValueAfterInflation">0</span>
-        </div>
-        
-        <div>
-            <label for="reinvestedDividends">재투자된 배당금:</label>
-            <span id="reinvestedDividends">0</span>
-        </div>
-        
-        <div>
-            <label for="totalAssetsIncrease">총 자산 증가:</label>
-            <span id="totalAssetsIncrease">0</span>
-        </div>
-        
-        <div>
-            <label for="yearsToTarget">목표 달성까지 걸리는 년수:</label>
-            <span id="yearsToTarget">0</span>
-        </div>
+    <label for="dividendYield">배당률 (%):</label>
+    <input type="number" id="dividendYield" value="4"><br>
 
-        <div>
-            <label for="annualDividendAtTarget">목표 달성 시 연 배당금액:</label>
-            <span id="annualDividendAtTarget">0</span>
-        </div>
-    </div>
+    <label for="dividendGrowthRate">배당 성장률 (%):</label>
+    <input type="number" id="dividendGrowthRate" value="8"><br>
+
+    <label for="stockGrowthRate">주가 상승률 (%):</label>
+    <input type="number" id="stockGrowthRate" value="4"><br>
+
+    <label for="monthlyDividendInvestment">월 배당 투자금액 (만 원):</label>
+    <input type="number" id="monthlyDividendInvestment" value="200"><br>
+
+    <label for="monthlyDividendIncreaseRate">월 배당 투자금액 증가율 (%):</label>
+    <input type="number" id="monthlyDividendIncreaseRate" value="0"><br>
+
+    <label for="dividendReinvestmentRate">배당금 재투자율 (%):</label>
+    <input type="number" id="dividendReinvestmentRate" value="100"><br>
+
+    <label for="dividendTaxRate">배당세율 (%):</label>
+    <input type="number" id="dividendTaxRate" value="15.0"><br>
+
+    <label for="inflationRate">인플레이션 반영률 (%):</label>
+    <input type="number" id="inflationRate" value="0"><br>
+
+    <label for="targetMonthlyDividend">목표 월 배당금 (만 원):</label>
+    <input type="number" id="targetMonthlyDividend" value="300"><br>
+
+    <button onclick="calculate()">계산하기</button>
+
+    <h2>결과</h2>
+    <p id="nextYearDividend">다음 해의 배당금: </p>
+    <p id="afterTaxDividend">세후 배당금: </p>
+    <p id="realValueAfterInflation">인플레이션 반영 후 배당금 가치: </p>
+    <p id="reinvestedDividends">재투자된 배당금: </p>
+    <p id="totalAssetsIncrease">총 자산 증가: </p>
+    <p id="yearsToGoal">목표 달성까지 걸리는 년수: </p>
+    <p id="finalAnnualDividend">목표 달성 시 연 배당금액: </p>
 
     <script src="script.js"></script>
 </body>
