@@ -4,7 +4,7 @@ function calculate() {
     const dividendYield = document.getElementById("dividendYield").value / 100; // 비율
     const dividendGrowthRate = document.getElementById("dividendGrowthRate").value / 100; // 비율
     const stockGrowthRate = document.getElementById("stockGrowthRate").value / 100; // 비율
-    const monthlyDividendInvestment = document.getElementById("monthlyDividendInvestment").value * 10000; // 만 원
+    let monthlyDividendInvestment = document.getElementById("monthlyDividendInvestment").value * 10000; // 만 원
     const monthlyDividendIncreaseRate = document.getElementById("monthlyDividendIncreaseRate").value / 100; // 비율
     const dividendReinvestmentRate = document.getElementById("dividendReinvestmentRate").value / 100; // 비율
     const dividendTaxRate = document.getElementById("dividendTaxRate").value / 100; // 비율
