@@ -52,6 +52,6 @@ document.getElementById("calculateButton").onclick = function() {
     }
 
     // 결과 출력
-    results += `</table><br>목표 월 배당금 (${(targetMonthlyDividend / 10000).toFixed(2)} 만원) 달성까지 ${year}년이 소요됩니다.`;
+    results += `</table><br>목표 월 배당금 (${(targetMonthlyDividend / 10000).toFixed(2)} 만원) 달성까지 ${year}년이 소요됩니다.🔥`;
     document.getElementById("result").innerHTML = results;
 };
