@@ -1,13 +1,13 @@
 document.getElementById("calculateButton").addEventListener("click", function() {
-    const investmentAmount = parseFloat(document.getElementById("investmentAmount").value);
-    const monthlyDividendInvestment = parseFloat(document.getElementById("monthlyDividendInvestment").value);
+    const investmentAmount = parseFloat(document.getElementById("investmentAmount").value) * 10000; // 만 단위로 변환
+    const monthlyDividendInvestment = parseFloat(document.getElementById("monthlyDividendInvestment").value) * 10000; // 만 단위로 변환
     const dividendYield = parseFloat(document.getElementById("dividendYield").value) / 100; // 배당률을 소수로 변환
     const dividendGrowthRate = parseFloat(document.getElementById("dividendGrowthRate").value) / 100; // 배당 성장률을 소수로 변환
     const stockGrowthRate = parseFloat(document.getElementById("stockGrowthRate").value) / 100; // 주가 상승률을 소수로 변환
     const dividendReinvestmentRate = parseFloat(document.getElementById("dividendReinvestmentRate").value) / 100; // 재투자율을 소수로 변환
     const dividendTaxRate = parseFloat(document.getElementById("dividendTaxRate").value) / 100; // 배당세율을 소수로 변환
     const inflationRate = parseFloat(document.getElementById("inflationRate").value) / 100; // 인플레이션 반영률을 소수로 변환
-    const targetMonthlyDividend = parseFloat(document.getElementById("targetMonthlyDividend").value); // 목표 월 배당금
+    const targetMonthlyDividend = parseFloat(document.getElementById("targetMonthlyDividend").value) * 10000; // 만 단위로 변환
 
     // 다음 해의 배당금 계산
     const nextYearDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
@@ -53,4 +53,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     }
 
     document.getElementById("yearsToTarget").innerText = years;
+
+    // 목표 달성 시 연 배당금액 계산
+    const finalAnnualDividend = (investmentAmount * dividendYield + monthlyDividendInvestment * dividendYield) * (1 + dividendGrowthRate);
+    document.getElementById("annualDividendAtTarget").innerText = finalAnnualDividend.toFixed(2);
 });
